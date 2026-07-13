@@ -17,7 +17,7 @@ EOT
     script                  = string
     stream_analytics_job_id = string
     input = list(object({
-      configuration_parameter = optional(bool) # Default: false
+      configuration_parameter = optional(bool)
       type                    = string
     }))
     output = object({
@@ -32,22 +32,6 @@ EOT
     ])
     error_message = "Each input list must contain at least 1 items"
   }
-  validation {
-    condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
-        contains(["any", "array", "bigint", "datetime", "float", "nvarchar(max)", "record"], v.output.type)
-      )
-    ])
-    error_message = "must be one of: any, array, bigint, datetime, float, nvarchar(max), record"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
-        length(v.script) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_stream_analytics_function_javascript_uda's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -61,5 +45,11 @@ EOT
   # path: input.type
   #   condition: contains(["any", "array", "bigint", "datetime", "float", "nvarchar(max)", "record"], value)
   #   message:   must be one of: any, array, bigint, datetime, float, nvarchar(max), record
+  # path: output.type
+  #   condition: contains(["any", "array", "bigint", "datetime", "float", "nvarchar(max)", "record"], value)
+  #   message:   must be one of: any, array, bigint, datetime, float, nvarchar(max), record
+  # path: script
+  #   condition: length(value) > 0
+  #   message:   must not be empty
 }
 
