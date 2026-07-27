@@ -1,5 +1,5 @@
-resource "azurerm_stream_analytics_function_javascript_uda" "stream_analytics_function_javascript_udas" {
-  for_each = var.stream_analytics_function_javascript_udas
+resource "azurerm_stream_analytics_function_javascript_uda" "stream_analytics_function_javascript_uda" {
+  for_each = var.stream_analytics_function_javascript_uda
 
   name                    = each.value.name
   script                  = each.value.script

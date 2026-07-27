@@ -1,6 +1,6 @@
-variable "stream_analytics_function_javascript_udas" {
+variable "stream_analytics_function_javascript_uda" {
   description = <<EOT
-Map of stream_analytics_function_javascript_udas, attributes below
+Map of stream_analytics_function_javascript_uda, attributes below
 Required:
     - name
     - script
@@ -26,7 +26,7 @@ EOT
   }))
   validation {
     condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
+      for k, v in var.stream_analytics_function_javascript_uda : (
         length(v.input) >= 1
       )
     ])
@@ -34,7 +34,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
+      for k, v in var.stream_analytics_function_javascript_uda : (
         alltrue([for item in v.input : (contains(["any", "array", "bigint", "datetime", "float", "nvarchar(max)", "record"], item.type))])
       )
     ])
@@ -42,7 +42,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
+      for k, v in var.stream_analytics_function_javascript_uda : (
         contains(["any", "array", "bigint", "datetime", "float", "nvarchar(max)", "record"], v.output.type)
       )
     ])
@@ -50,7 +50,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.stream_analytics_function_javascript_udas : (
+      for k, v in var.stream_analytics_function_javascript_uda : (
         length(v.script) > 0
       )
     ])
