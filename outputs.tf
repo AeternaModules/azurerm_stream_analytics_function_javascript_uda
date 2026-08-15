@@ -12,7 +12,7 @@ output "stream_analytics_function_javascript_uda_name" {
 }
 output "stream_analytics_function_javascript_uda_output" {
   description = "Map of output values across all stream_analytics_function_javascript_uda, keyed the same as var.stream_analytics_function_javascript_uda"
-  value       = { for k, v in azurerm_stream_analytics_function_javascript_uda.stream_analytics_function_javascript_uda : k => v.output if v.output != null && length(v.output) > 0 }
+  value       = { for k, v in azurerm_stream_analytics_function_javascript_uda.stream_analytics_function_javascript_uda : k => one(v.output) if v.output != null && length(v.output) > 0 }
 }
 output "stream_analytics_function_javascript_uda_script" {
   description = "Map of script values across all stream_analytics_function_javascript_uda, keyed the same as var.stream_analytics_function_javascript_uda"
